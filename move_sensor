@@ -1,0 +1,32 @@
+//подключаем выход SIG модуля к выводу 9 платы Arduino.
+int led = 13;       // выбираем вывод 9
+int brightness;    // устанавливаем начальный уровень яркости
+//int fadeAmount = 0;    // шаг изменения яркости
+int echoPin = A1; 
+int trigPin = A2; 
+void setup()
+{
+ pinMode(led, OUTPUT);
+ Serial.begin (9600); 
+ pinMode(trigPin, OUTPUT); 
+ pinMode(echoPin, INPUT); 
+}
+
+void loop()  {
+  int duration, cm; 
+  digitalWrite(trigPin, LOW); 
+  delayMicroseconds(2); 
+  digitalWrite(trigPin, HIGH); 
+  delayMicroseconds(10); 
+  digitalWrite(trigPin, LOW); 
+  duration = pulseIn(echoPin, HIGH); 
+  analogWrite(led, brightness);  
+  if (duration < 5000) 
+  {
+  brightness = 255;
+  } else 
+  {
+  brightness = 0;
+  }
+  delay(2000);
+}
